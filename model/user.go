@@ -17,3 +17,10 @@ type User struct {
 func (m *User) TableName() string {
 	return "tbl_user"
 }
+
+type APIUser struct {
+	UserName string `json:"user_name"`
+	Phone    string `json:"phone"`
+	Password string `json:"password"`
+	IsVip    int    `json:"isVip"`
+}
