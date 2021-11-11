@@ -27,7 +27,6 @@ func CreateUser(name, phone, password string, isVip int) (*model.User, error) {
 	}
 
 	err = db.Debug().Create(user).Error
-
 	if err != nil {
 		return nil, err
 	}
@@ -69,7 +68,7 @@ func DeleteUser(id int) error {
 }
 
 // UpdateUser 修改用户的基本信息
-func UpdateUser(id int, name, phone, password string, isVip int) (*model.User, error) {
+func UpdateUser(myUser model.APIUserWithId) (*model.User, error) {
 
 	db, err := DBConn()
 	if err != nil {
@@ -77,17 +76,17 @@ func UpdateUser(id int, name, phone, password string, isVip int) (*model.User, e
 	}
 
 	attr := map[string]interface{}{
-		"phone":     phone,
-		"user_pwd":  password,
-		"is_vip":    isVip,
-		"user_name": name,
+		"phone":     myUser.Phone,
+		"user_pwd":  myUser.Password,
+		"is_vip":    myUser.IsVip,
+		"user_name": myUser.UserName,
 	}
 
 	user := &model.User{}
 
 	err = db.Debug().
 		Model(user).
-		Where("id = ? and deleted = 0", id).
+		Where("id = ? and deleted = 0", myUser.Id).
 		Updates(attr).
 		Error
 

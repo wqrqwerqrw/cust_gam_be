@@ -8,7 +8,6 @@ import (
 )
 
 func main() {
-
 	store.Init()
 
 	r := gin.Default()
@@ -19,6 +18,9 @@ func main() {
 	})
 	userGroup := r.Group("/user")
 	userGroup.POST("/add", handler.CreateUser)
+	userGroup.POST("/change", handler.ChangeUser)
+	userGroup.DELETE("/delete", handler.DeleteUser)
+	userGroup.GET("/query", handler.QueryUser)
 
 	r.Run() // 监听并在 0.0.0.0:8080 上启动服务
 

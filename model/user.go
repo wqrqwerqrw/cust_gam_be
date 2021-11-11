@@ -18,7 +18,17 @@ func (m *User) TableName() string {
 	return "tbl_user"
 }
 
+// APIUser 前端注册传入
 type APIUser struct {
+	UserName string `json:"user_name"`
+	Phone    string `json:"phone"`
+	Password string `json:"password"`
+	IsVip    int    `json:"isVip"`
+}
+
+// APIUserWithId 带id的
+type APIUserWithId struct {
+	Id       int    `json:"id"`
 	UserName string `json:"user_name"`
 	Phone    string `json:"phone"`
 	Password string `json:"password"`
