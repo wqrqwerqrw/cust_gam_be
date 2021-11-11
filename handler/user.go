@@ -17,7 +17,7 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	_, err := store.CreateUser(req.UserName, req.Phone, req.Password, req.IsVip)
+	err := store.CreateUser(req.UserName, req.Phone, req.Password, req.IsVip)
 
 	if err != nil {
 		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")

@@ -2,6 +2,7 @@ package store
 
 import (
 	"github.com/wqrqwerqrw/cust_gam_backend/model"
+	"time"
 )
 
 // QueryServiceByUserName 查询用户的服务
@@ -47,4 +48,31 @@ func QueryService(id int) (*model.TblService, error) {
 	}
 
 	return service, nil
+}
+
+// AddServiceWithUserName 给某个用户添加服务
+func AddServiceWithUserName(username, serviceName string, isUsed int, serviceCost, serviceTime float32) error {
+	db, err := DBConn()
+	if err != nil {
+		return err
+	}
+
+	now := time.Now()
+
+	service := model.TblUserService{
+		UserName:    username,
+		ServiceName: serviceName,
+		ServiceCost: serviceCost,
+		ServiceTime: int(serviceTime),
+		IsUsed:      int8(isUsed),
+		CreateTime:  now,
+		UpdateTime:  now,
+	}
+	err = db.Debug().Table("tbl_user_service").Create(service).Error
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

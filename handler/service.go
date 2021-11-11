@@ -11,6 +11,13 @@ import (
 func QueryServiceByUserName(c *gin.Context) {
 	req := c.Query("username")
 
+	_, err := store.QueryUserByUserName(req)
+
+	if err != nil {
+		utils.MakeErrorResp(c, utils.ErrorInternalError, "无效username")
+		return
+	}
+
 	dbService, err := store.QueryServiceByUserName(req)
 
 	if err != nil {
@@ -62,4 +69,8 @@ func QueryService(c *gin.Context) {
 		return
 	}
 	utils.MakeOKResp(c, dbService)
+}
+
+func AddServiceWithUserName(c *gin.Context) {
+
 }

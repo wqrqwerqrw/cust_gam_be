@@ -1,18 +1,17 @@
 package store
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/wqrqwerqrw/cust_gam_backend/model"
 )
 
 // CreateUser 添加用户
-func CreateUser(name, phone, password string, isVip int) (*model.User, error) {
+func CreateUser(name, phone, password string, isVip int) error {
 
 	db, err := DBConn()
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	now := time.Now()
@@ -28,12 +27,10 @@ func CreateUser(name, phone, password string, isVip int) (*model.User, error) {
 
 	err = db.Debug().Create(user).Error
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	fmt.Print(user)
-
-	return user, nil
+	return nil
 }
 
 // QueryUser 查询用户
@@ -95,5 +92,21 @@ func UpdateUser(myUser model.APIUserWithId) (*model.User, error) {
 	}
 
 	return user, nil
+}
 
+// QueryUserByUserName 查询用户
+func QueryUserByUserName(username string) (*model.APIUserWithId, error) {
+	db, err := DBConn()
+	if err != nil {
+		return nil, err
+	}
+
+	user := &model.APIUserWithId{}
+
+	err = db.Debug().Table("tbl_user").Where("user_name = ? and deleted = 0", username).First(user).Error
+
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
 }
