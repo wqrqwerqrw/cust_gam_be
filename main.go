@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-
 	"github.com/wqrqwerqrw/cust_gam_backend/handler"
 	"github.com/wqrqwerqrw/cust_gam_backend/store"
 )
@@ -21,6 +20,12 @@ func main() {
 	userGroup.POST("/change", handler.ChangeUser)
 	userGroup.DELETE("/delete", handler.DeleteUser)
 	userGroup.GET("/query", handler.QueryUser)
+
+	serviceGroup := r.Group("/service")
+	serviceGroup.GET("/user", handler.QueryServiceByUserName)
+	serviceGroup.POST("/add", handler.CreateService)
+	serviceGroup.DELETE("/delete", handler.DeleteService)
+	serviceGroup.POST("/change", handler.UpDateService)
 
 	r.Run() // 监听并在 0.0.0.0:8080 上启动服务
 

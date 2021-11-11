@@ -37,14 +37,14 @@ func CreateUser(name, phone, password string, isVip int) (*model.User, error) {
 }
 
 // QueryUser 查询用户
-func QueryUser(id int) (*model.User, error) {
+func QueryUser(id int) (*model.APIUserWithId, error) {
 
 	db, err := DBConn()
 	if err != nil {
 		return nil, err
 	}
 
-	user := &model.User{}
+	user := &model.APIUserWithId{}
 
 	err = db.Debug().Table("tbl_user").Where("id = ? and deleted = 0", id).First(user).Error
 
