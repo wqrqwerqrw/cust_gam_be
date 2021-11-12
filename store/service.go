@@ -51,25 +51,24 @@ func QueryService(id int) (*model.TblService, error) {
 }
 
 // AddServiceWithUserName 给某个用户添加服务
-func AddServiceWithUserName(username, serviceName string, isUsed int, serviceCost, serviceTime float32) error {
+func AddServiceWithUserName(userService model.APIUserService) error {
 	db, err := DBConn()
 	if err != nil {
 		return err
 	}
 
 	now := time.Now()
-
 	service := model.TblUserService{
-		UserName:    username,
-		ServiceName: serviceName,
-		ServiceCost: serviceCost,
-		ServiceTime: int(serviceTime),
-		IsUsed:      int8(isUsed),
+		UserName:    userService.UserName,
+		ServiceName: userService.ServiceName,
+		ServiceCost: userService.ServiceCost,
+		ServiceTime: userService.ServiceTime,
+		IsUsed:      userService.IsUsed,
 		CreateTime:  now,
 		UpdateTime:  now,
+		Deleted:     0,
 	}
-	err = db.Debug().Table("tbl_user_service").Create(service).Error
-
+	err = db.Debug().Create(&service).Error
 	if err != nil {
 		return err
 	}

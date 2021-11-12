@@ -23,6 +23,7 @@ func CreateUser(name, phone, password string, isVip int) error {
 		IsVip:      isVip,
 		CreateTime: now,
 		UpdateTime: now,
+		Deleted:    0,
 	}
 
 	err = db.Debug().Create(user).Error

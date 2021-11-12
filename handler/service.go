@@ -85,5 +85,17 @@ func QueryService(c *gin.Context) {
 }
 
 func AddServiceWithUserName(c *gin.Context) {
+	req := model.APIUserService{}
+	if err := c.ShouldBind(&req); err != nil {
+		utils.MakeErrorResp(c, utils.ErrorWrongAttr, "参数错误")
+		return
+	}
+	err := store.AddServiceWithUserName(req)
 
+	if err != nil {
+		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")
+		return
+	}
+
+	utils.MakeOKResp(c, nil)
 }

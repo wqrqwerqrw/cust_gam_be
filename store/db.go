@@ -26,7 +26,7 @@ func Init() {
 	dbConf := map[string]string{}
 	json.Unmarshal(dbConfByte, &dbConf)
 	fmt.Print(dbConf)
-	dbConfStr = dbConf["user"] + ":" + dbConf["pass"] + "@tcp(" + dbConf["path"] + ")/gam?charset=utf8mb4&parseTime=True"
+	dbConfStr = dbConf["user"] + ":" + dbConf["pass"] + "@tcp(" + dbConf["path"] + ")/newgam?charset=utf8mb4&parseTime=True"
 
 	db, err = gorm.Open(mysql.Open(dbConfStr), &gorm.Config{})
 }

@@ -37,17 +37,36 @@ func (m *TblUserService) TableName() string {
 	return "tbl_user_service"
 }
 
-// APIService 签到传入的
+// APIService 前端传入的
 type APIService struct {
 	Name string  `json:"name"`
 	Cost float32 `json:"cost"`
 	Desc string  `json:"desc"`
 }
 
-// APIServiceWithId 签到传入的
+// APIServiceWithId 前端传入的
 type APIServiceWithId struct {
 	Id   int     `json:"id"`
 	Name string  `json:"name"`
 	Cost float32 `json:"cost"`
 	Desc string  `json:"desc"`
+}
+
+// APIUserService 前端传入
+type APIUserService struct {
+	UserName    string  `json:"user_name" gorm:"column:user_name"`       // 用户名
+	ServiceName string  `json:"service_name" gorm:"column:service_name"` // 服务项目名称
+	ServiceCost float32 `json:"service_cost" gorm:"column:service_cost"` // 服务费用,元/小时
+	ServiceTime int     `json:"service_time" gorm:"column:service_time"` // 使用时间,向上取整
+	IsUsed      int8    `json:"is_used" gorm:"column:is_used"`           // 0:没有使用，1:使用过
+}
+
+// APIUserServiceWithId 前端传入
+type APIUserServiceWithId struct {
+	Id          int     `json:"id"`
+	UserName    string  `json:"userName"`
+	ServiceName string  `json:"serviceName"`
+	ServiceCost float32 `json:"serviceCost"`
+	ServiceTime int     `json:"serviceTime"`
+	IsUsed      int8    `json:"isUsed"`
 }

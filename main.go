@@ -27,6 +27,7 @@ func main() {
 	serviceGroup.DELETE("/delete", handler.DeleteService)
 	serviceGroup.POST("/change", handler.UpDateService)
 	serviceGroup.GET("/query", handler.QueryService)
+	serviceGroup.POST("/userServiceAdd", handler.AddServiceWithUserName)
 
 	r.Run() // 监听并在 0.0.0.0:8080 上启动服务
 
