@@ -11,6 +11,7 @@ import (
 )
 
 var db *gorm.DB
+var err error
 
 var dbConfStr string
 
@@ -27,8 +28,12 @@ func Init() {
 	fmt.Print(dbConf)
 	dbConfStr = dbConf["user"] + ":" + dbConf["pass"] + "@tcp(" + dbConf["path"] + ")/gam?charset=utf8mb4&parseTime=True"
 
+	db, err = gorm.Open(mysql.Open(dbConfStr), &gorm.Config{})
 }
 
 func DBConn() (*gorm.DB, error) {
-	return gorm.Open(mysql.Open(dbConfStr), &gorm.Config{})
+	if err != nil {
+		return gorm.Open(mysql.Open(dbConfStr), &gorm.Config{})
+	}
+	return db, err
 }
