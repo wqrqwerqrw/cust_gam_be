@@ -99,3 +99,28 @@ func CreateService(ser model.APIService) error {
 
 	return nil
 }
+
+// UpdateUserService 更新用户与服务
+func UpdateUserService(ser model.APIUserServiceWithId) error {
+	db, err := DBConn()
+	if err != nil {
+		return err
+	}
+
+	attr := map[string]interface{}{
+		"user_name":    ser.UserName,
+		"service_name": ser.ServiceName,
+		"service_cost": ser.ServiceCost,
+		"service_time": ser.ServiceTime,
+		"is_used":      ser.IsUsed,
+	}
+
+	err = db.Debug().Table("tbl_user_service").Where("id = ? and deleted = 0", ser.Id).
+		Updates(attr).
+		Error
+
+	if err != nil {
+		return err
+	}
+	return nil
+}

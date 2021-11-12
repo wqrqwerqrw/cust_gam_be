@@ -45,9 +45,20 @@ func CreateService(c *gin.Context) {
 	utils.MakeOKResp(c, nil)
 }
 
-// UpDateService 修改服务信息
-func UpDateService(c *gin.Context) {
+// UpDateUserService 修改用户服务信息
+func UpDateUserService(c *gin.Context) {
+	req := model.APIUserServiceWithId{}
+	if err := c.ShouldBind(&req); err != nil {
+		utils.MakeErrorResp(c, utils.ErrorWrongAttr, "参数错误")
+		return
+	}
+	err := store.UpdateUserService(req)
+	if err != nil {
+		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")
+		return
+	}
 
+	utils.MakeOKResp(c, nil)
 }
 
 // DeleteService 删除服务
@@ -84,6 +95,7 @@ func QueryService(c *gin.Context) {
 	utils.MakeOKResp(c, dbService)
 }
 
+// AddServiceWithUserName 给用户添加服务信息
 func AddServiceWithUserName(c *gin.Context) {
 	req := model.APIUserService{}
 	if err := c.ShouldBind(&req); err != nil {

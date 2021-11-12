@@ -35,7 +35,7 @@ func ChangeUser(c *gin.Context) {
 		return
 	}
 
-	_, err := store.UpdateUser(req)
+	err := store.UpdateUser(req)
 
 	if err != nil {
 		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")

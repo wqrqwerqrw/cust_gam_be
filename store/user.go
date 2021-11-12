@@ -66,11 +66,11 @@ func DeleteUser(id int) error {
 }
 
 // UpdateUser 修改用户的基本信息
-func UpdateUser(myUser model.APIUserWithId) (*model.User, error) {
+func UpdateUser(myUser model.APIUserWithId) error {
 
 	db, err := DBConn()
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	attr := map[string]interface{}{
@@ -80,19 +80,16 @@ func UpdateUser(myUser model.APIUserWithId) (*model.User, error) {
 		"user_name": myUser.UserName,
 	}
 
-	user := &model.User{}
-
-	err = db.Debug().
-		Model(user).
+	err = db.Debug().Table("tbl_user").
 		Where("id = ? and deleted = 0", myUser.Id).
 		Updates(attr).
 		Error
 
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return user, nil
+	return nil
 }
 
 // QueryUserByUserName 查询用户

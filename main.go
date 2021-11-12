@@ -22,13 +22,14 @@ func main() {
 	userGroup.GET("/query", handler.QueryUser)
 
 	serviceGroup := r.Group("/service")
-	serviceGroup.GET("/user", handler.QueryServiceByUserName)
 	serviceGroup.POST("/add", handler.CreateService)
 	serviceGroup.DELETE("/delete", handler.DeleteService)
-	serviceGroup.POST("/change", handler.UpDateService)
 	serviceGroup.GET("/query", handler.QueryService)
-	serviceGroup.POST("/userServiceAdd", handler.AddServiceWithUserName)
 
+	userService := r.Group("/userService")
+	userService.POST("/add", handler.AddServiceWithUserName)
+	userService.POST("/change", handler.UpDateUserService)
+	userService.GET("/query", handler.QueryServiceByUserName)
 	r.Run() // 监听并在 0.0.0.0:8080 上启动服务
 
 }
