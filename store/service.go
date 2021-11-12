@@ -73,6 +73,30 @@ func AddServiceWithUserName(username, serviceName string, isUsed int, serviceCos
 	if err != nil {
 		return err
 	}
+	return nil
+}
+
+// CreateService 创建服务
+func CreateService(ser model.APIService) error {
+	db, err := DBConn()
+	if err != nil {
+		return err
+	}
+
+	now := time.Now()
+
+	service := model.TblService{
+		Name:       ser.Name,
+		Cost:       ser.Cost,
+		Desc:       ser.Desc,
+		CreateTime: now,
+		UpdateTime: now,
+	}
+	err = db.Debug().Table("tbl_service").Create(&service).Error
+
+	if err != nil {
+		return err
+	}
 
 	return nil
 }

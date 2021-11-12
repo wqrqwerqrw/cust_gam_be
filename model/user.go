@@ -20,7 +20,7 @@ func (m *User) TableName() string {
 
 // APIUser 前端注册传入
 type APIUser struct {
-	UserName string `json:"user_name"`
+	UserName string `json:"username"`
 	Phone    string `json:"phone"`
 	Password string `json:"password"`
 	IsVip    int    `json:"isVip"`
@@ -29,7 +29,7 @@ type APIUser struct {
 // APIUserWithId 带id的
 type APIUserWithId struct {
 	Id       int    `json:"id"`
-	UserName string `json:"user_name"`
+	UserName string `json:"username"`
 	Phone    string `json:"phone"`
 	Password string `json:"password"`
 	IsVip    int    `json:"isVip"`

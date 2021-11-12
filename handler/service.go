@@ -2,6 +2,7 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/wqrqwerqrw/cust_gam_backend/model"
 	"github.com/wqrqwerqrw/cust_gam_backend/store"
 	"github.com/wqrqwerqrw/cust_gam_backend/utils"
 	"strconv"
@@ -29,7 +30,19 @@ func QueryServiceByUserName(c *gin.Context) {
 
 // CreateService 添加服务
 func CreateService(c *gin.Context) {
+	req := model.APIService{}
+	if err := c.ShouldBind(&req); err != nil {
+		utils.MakeErrorResp(c, utils.ErrorWrongAttr, "参数错误")
+		return
+	}
+	err := store.CreateService(req)
 
+	if err != nil {
+		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")
+		return
+	}
+
+	utils.MakeOKResp(c, nil)
 }
 
 // UpDateService 修改服务信息

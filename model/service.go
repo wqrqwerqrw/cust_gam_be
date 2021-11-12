@@ -36,3 +36,18 @@ type TblUserService struct {
 func (m *TblUserService) TableName() string {
 	return "tbl_user_service"
 }
+
+// APIService 签到传入的
+type APIService struct {
+	Name string  `json:"name"`
+	Cost float32 `json:"cost"`
+	Desc string  `json:"desc"`
+}
+
+// APIServiceWithId 签到传入的
+type APIServiceWithId struct {
+	Id   int     `json:"id"`
+	Name string  `json:"name"`
+	Cost float32 `json:"cost"`
+	Desc string  `json:"desc"`
+}
