@@ -50,6 +50,24 @@ func QueryService(id int) (*model.TblService, error) {
 	return service, nil
 }
 
+// QueryServiceByName 查询服务
+func QueryServiceByName(name string) (*model.TblService, error) {
+	db, err := DBConn()
+	if err != nil {
+		return nil, err
+	}
+
+	service := &model.TblService{}
+
+	err = db.Debug().Table("tbl_service").Where("name = ? and deleted = 0", name).First(service).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	return service, nil
+}
+
 // AddServiceWithUserName 给某个用户添加服务
 func AddServiceWithUserName(userService model.APIUserService) error {
 	db, err := DBConn()

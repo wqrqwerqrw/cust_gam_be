@@ -102,7 +102,20 @@ func AddServiceWithUserName(c *gin.Context) {
 		utils.MakeErrorResp(c, utils.ErrorWrongAttr, "参数错误")
 		return
 	}
-	err := store.AddServiceWithUserName(req)
+
+	user, err := store.QueryUserByUserName(req.UserName)
+	if err != nil || user == nil {
+		utils.MakeErrorResp(c, utils.ErrorWrongAttr, "用户不存在")
+		return
+	}
+
+	service, err := store.QueryServiceByName(req.ServiceName)
+	if err != nil || service == nil {
+		utils.MakeErrorResp(c, utils.ErrorWrongAttr, "服务项目不存在")
+		return
+	}
+
+	err = store.AddServiceWithUserName(req)
 
 	if err != nil {
 		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")
