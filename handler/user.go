@@ -16,7 +16,6 @@ func CreateUser(c *gin.Context) {
 		utils.MakeErrorResp(c, utils.ErrorWrongAttr, "参数错误")
 		return
 	}
-
 	err := store.CreateUser(req.UserName, req.Phone, req.Password, req.IsVip)
 
 	if err != nil {

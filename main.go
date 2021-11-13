@@ -30,6 +30,5 @@ func main() {
 	userService.POST("/add", handler.AddServiceWithUserName)
 	userService.POST("/change", handler.UpDateUserService)
 	userService.GET("/query", handler.QueryServiceByUserName)
-	r.Run() // 监听并在 0.0.0.0:8080 上启动服务
-
+	r.Run("localhost:9090") // 监听并在 0.0.0.0:8080 上启动服务
 }
