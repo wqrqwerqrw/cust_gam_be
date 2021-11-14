@@ -108,6 +108,30 @@ func QueryService(c *gin.Context) {
 	utils.MakeOKResp(c, dbService)
 }
 
+// QueryAllService 查询所有服务
+func QueryAllService(c *gin.Context) {
+	dbService, err := store.QueryAllService()
+
+	if err != nil {
+		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")
+		return
+	}
+
+	dbServices := &[]model.APIServiceWithId{}
+	for _, service := range *dbService {
+		ser := model.APIServiceWithId{
+			Id:   service.ID,
+			Tag:  service.Tag,
+			Name: service.Name,
+			Cost: service.Cost,
+			Desc: service.Desc,
+		}
+		*dbServices = append(*dbServices, ser)
+	}
+
+	utils.MakeOKResp(c, dbServices)
+}
+
 // AddServiceWithUserName 给用户添加服务信息
 func AddServiceWithUserName(c *gin.Context) {
 	req := model.APIUserService{}

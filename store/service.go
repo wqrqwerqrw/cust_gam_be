@@ -50,6 +50,24 @@ func QueryService(id int) (*model.TblService, error) {
 	return service, nil
 }
 
+// QueryAllService 查询所有服务
+func QueryAllService() (*[]model.TblService, error) {
+	db, err := DBConn()
+	if err != nil {
+		return nil, err
+	}
+
+	services := &[]model.TblService{}
+
+	err = db.Debug().Table("tbl_service").Where("deleted = 0").Find(services).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	return services, nil
+}
+
 // QueryServiceByName 查询服务
 func QueryServiceByName(name string) (*model.TblService, error) {
 	db, err := DBConn()
@@ -106,6 +124,7 @@ func CreateService(ser model.APIService) error {
 		Name:       ser.Name,
 		Cost:       ser.Cost,
 		Desc:       ser.Desc,
+		Tag:        ser.Tag,
 		CreateTime: now,
 		UpdateTime: now,
 	}

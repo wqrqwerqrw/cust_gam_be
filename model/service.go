@@ -9,7 +9,7 @@ type TblService struct {
 	Name       string    `json:"name" gorm:"column:name"`              // 服务项目名称
 	Cost       float32   `json:"cost" gorm:"column:cost"`              // 服务费用,元/小时
 	Desc       string    `json:"desc" gorm:"column:desc"`              // 服务项目详细说明
-	Extra1     string    `json:"extra1" gorm:"column:extra1"`          // 扩展字段1
+	Tag        string    `json:"tag" gorm:"column:tag"`                // 标签
 	Extra2     string    `json:"extra2" gorm:"column:extra2"`          // 扩展字段2
 	Extra3     string    `json:"extra3" gorm:"column:extra3"`          // 扩展字段3
 	CreateTime time.Time `json:"createTime" gorm:"column:create_time"` // 创建时间
@@ -40,6 +40,7 @@ func (m *TblUserService) TableName() string {
 // APIService 前端传入的
 type APIService struct {
 	Name string  `json:"name"`
+	Tag  string  `json:"tag"`
 	Cost float32 `json:"cost"`
 	Desc string  `json:"desc"`
 }
@@ -47,6 +48,7 @@ type APIService struct {
 // APIServiceWithId 前端传入的
 type APIServiceWithId struct {
 	Id   int     `json:"id"`
+	Tag  string  `json:"tag"`
 	Name string  `json:"name"`
 	Cost float32 `json:"cost"`
 	Desc string  `json:"desc"`

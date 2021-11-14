@@ -36,7 +36,7 @@ CREATE TABLE `tbl_service` (
     `name` varchar(64) NOT NULL COMMENT '服务项目名称',
     `cost` float(10) NOT NULL COMMENT '服务费用,元/小时',
     `desc` varchar(256) NOT NULL DEFAULT '' COMMENT '服务项目详细说明',
-    `extra1` varchar(64) NOT NULL DEFAULT '' COMMENT '扩展字段1',
+    `tag` varchar(64) NOT NULL DEFAULT '' COMMENT '标签',
     `extra2` varchar(64) NOT NULL DEFAULT '' COMMENT '扩展字段2',
     `extra3` varchar(64) NOT NULL DEFAULT '' COMMENT '扩展字段3',
     `create_time` datetime default NOW() COMMENT '创建时间',
