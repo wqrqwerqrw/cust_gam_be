@@ -18,4 +18,6 @@
   "path": 路径,
   "database": 数据库名
 }
+
+
 前端地址：https://github.com/Emcikem/gam-vue
