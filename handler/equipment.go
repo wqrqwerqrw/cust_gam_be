@@ -52,3 +52,37 @@ func QueryAllEquipment(c *gin.Context) {
 	}
 	utils.MakeOKResp(c, dbEquip)
 }
+
+// DeleteEquipment 删除设备
+func DeleteEquipment(c *gin.Context) {
+	req, err := strconv.Atoi(c.Query("id"))
+	if err != nil {
+		utils.MakeErrorResp(c, utils.ErrorWrongAttr, "参数错误")
+		return
+	}
+
+	err = store.DeleteEquipment(req)
+
+	if err != nil {
+		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")
+		return
+	}
+	utils.MakeOKResp(c, nil)
+}
+
+// ChangeEquipment 前端传json为model.APIEquipmentWithId
+func ChangeEquipment(c *gin.Context) {
+	req := model.APIEquipmentWithId{}
+	if err := c.ShouldBind(&req); err != nil {
+		utils.MakeErrorResp(c, utils.ErrorWrongAttr, "参数错误")
+		return
+	}
+
+	err := store.UpdateEquipment(req)
+
+	if err != nil {
+		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")
+		return
+	}
+	utils.MakeOKResp(c, nil)
+}

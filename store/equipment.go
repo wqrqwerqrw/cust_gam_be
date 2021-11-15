@@ -67,3 +67,41 @@ func QueryAllEquipment() (*[]model.APIEquipmentWithId, error) {
 
 	return equipments, nil
 }
+
+// DeleteEquipment 删除设备
+func DeleteEquipment(id int) error {
+
+	db, err := DBConn()
+	if err != nil {
+		return err
+	}
+
+	return db.Debug().Table("tbl_equipment").Where("id = ? and deleted = 0", id).Update("deleted", 1).Error
+}
+
+// UpdateEquipment 修改设备的基本信息
+func UpdateEquipment(myEquip model.APIEquipmentWithId) error {
+
+	db, err := DBConn()
+	if err != nil {
+		return err
+	}
+
+	attr := map[string]interface{}{
+		"name":   myEquip.Name,
+		"usable": myEquip.Usable,
+		"desc":   myEquip.Desc,
+		"stock":  myEquip.Stock,
+	}
+
+	err = db.Debug().Table("tbl_equipment").
+		Where("id = ? and deleted = 0", myEquip.ID).
+		Updates(attr).
+		Error
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

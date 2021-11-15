@@ -37,6 +37,8 @@ func main() {
 	equipmentGroup.POST("/add", handler.CreateEquipment)
 	equipmentGroup.GET("/query", handler.QueryEquipment)
 	equipmentGroup.GET("/queryAll", handler.QueryAllEquipment)
+	equipmentGroup.DELETE("/delete", handler.DeleteEquipment)
+	equipmentGroup.POST("/change", handler.ChangeEquipment)
 
 	r.Run("localhost:9090") // 监听并在 0.0.0.0:8080 上启动服务
 }
