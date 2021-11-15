@@ -11,10 +11,13 @@
 
 需要写一个db.json
 
-````
+```
 {
   "user": 账号
   "pass": 密码
   "path": 路径,
   "database": 数据库名
 }
+```
+
+前端地址：https://github.com/Emcikem/gam-vue
