@@ -7,20 +7,19 @@ import (
 )
 
 // CreateUser 添加用户
-func CreateUser(name, phone, password string, isVip int) error {
-
+func CreateUser(apiUser model.APIUser) error {
 	db, err := DBConn()
 	if err != nil {
 		return err
 	}
-
 	now := time.Now()
 
 	user := &model.User{
-		UserName:   name,
-		Phone:      phone,
-		UserPwd:    password,
-		IsVip:      isVip,
+		UserName:   apiUser.UserName,
+		Phone:      apiUser.Phone,
+		UserPwd:    apiUser.Password,
+		IsVip:      apiUser.IsVip,
+		Money:      apiUser.Money,
 		CreateTime: now,
 		UpdateTime: now,
 		Deleted:    0,
@@ -30,7 +29,6 @@ func CreateUser(name, phone, password string, isVip int) error {
 	if err != nil {
 		return err
 	}
-
 	return nil
 }
 
@@ -51,6 +49,25 @@ func QueryUser(id int) (*model.APIUserWithId, error) {
 	}
 
 	return user, nil
+}
+
+// QueryAllUser 查询所有用户
+func QueryAllUser() (*[]model.APIUserWithId, error) {
+
+	db, err := DBConn()
+	if err != nil {
+		return nil, err
+	}
+
+	users := &[]model.APIUserWithId{}
+
+	err = db.Debug().Table("tbl_user").Where("deleted = 0").Find(users).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	return users, nil
 }
 
 // DeleteUser 删除用户
@@ -78,6 +95,7 @@ func UpdateUser(myUser model.APIUserWithId) error {
 		"user_pwd":  myUser.Password,
 		"is_vip":    myUser.IsVip,
 		"user_name": myUser.UserName,
+		"money":     myUser.Money,
 	}
 
 	err = db.Debug().Table("tbl_user").

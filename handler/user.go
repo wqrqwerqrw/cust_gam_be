@@ -16,7 +16,7 @@ func CreateUser(c *gin.Context) {
 		utils.MakeErrorResp(c, utils.ErrorWrongAttr, "参数错误")
 		return
 	}
-	err := store.CreateUser(req.UserName, req.Phone, req.Password, req.IsVip)
+	err := store.CreateUser(req)
 
 	if err != nil {
 		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")
@@ -69,6 +69,17 @@ func QueryUser(c *gin.Context) {
 	}
 
 	dbUser, err := store.QueryUser(req)
+
+	if err != nil {
+		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")
+		return
+	}
+	utils.MakeOKResp(c, dbUser)
+}
+
+// QueryAllUser 查询所有用户详情
+func QueryAllUser(c *gin.Context) {
+	dbUser, err := store.QueryAllUser()
 
 	if err != nil {
 		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")

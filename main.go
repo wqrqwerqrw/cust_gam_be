@@ -20,6 +20,7 @@ func main() {
 	userGroup.POST("/change", handler.ChangeUser)
 	userGroup.DELETE("/delete", handler.DeleteUser)
 	userGroup.GET("/query", handler.QueryUser)
+	userGroup.GET("/queryAll", handler.QueryAllUser)
 
 	serviceGroup := r.Group("/service")
 	serviceGroup.POST("/add", handler.CreateService)
@@ -27,9 +28,15 @@ func main() {
 	serviceGroup.GET("/query", handler.QueryService)
 	serviceGroup.GET("/queryAll", handler.QueryAllService)
 
-	userService := r.Group("/userService")
-	userService.POST("/add", handler.AddServiceWithUserName)
-	userService.POST("/change", handler.UpDateUserService)
-	userService.GET("/query", handler.QueryServiceByUserName)
+	userServiceGroup := r.Group("/userService")
+	userServiceGroup.POST("/add", handler.AddServiceWithUserName)
+	userServiceGroup.POST("/change", handler.UpDateUserService)
+	userServiceGroup.GET("/query", handler.QueryServiceByUserName)
+
+	equipmentGroup := r.Group("/equipment")
+	equipmentGroup.POST("/add", handler.CreateEquipment)
+	equipmentGroup.GET("/query", handler.QueryEquipment)
+	equipmentGroup.GET("/queryAll", handler.QueryAllEquipment)
+
 	r.Run("localhost:9090") // 监听并在 0.0.0.0:8080 上启动服务
 }
