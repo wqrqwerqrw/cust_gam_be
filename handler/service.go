@@ -18,14 +18,25 @@ func QueryServiceByUserName(c *gin.Context) {
 		utils.MakeErrorResp(c, utils.ErrorInternalError, "用户不存在")
 		return
 	}
-
 	dbService, err := store.QueryServiceByUserName(req)
+	dbServices := &[]model.APIUserServiceWithId{}
+	for _, service := range *dbService {
+		ser := model.APIUserServiceWithId{
+			Id:          service.ID,
+			UserName:    service.UserName,
+			ServiceName: service.ServiceName,
+			ServiceCost: service.ServiceCost,
+			ServiceTime: service.ServiceTime,
+			IsUsed:      service.IsUsed,
+		}
+		*dbServices = append(*dbServices, ser)
+	}
 
 	if err != nil {
 		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")
 		return
 	}
-	utils.MakeOKResp(c, dbService)
+	utils.MakeOKResp(c, dbServices)
 }
 
 // CreateService 添加服务
