@@ -27,6 +27,7 @@ func main() {
 	serviceGroup.DELETE("/delete", handler.DeleteService)
 	serviceGroup.GET("/query", handler.QueryService)
 	serviceGroup.GET("/queryAll", handler.QueryAllService)
+	serviceGroup.POST("/change", handler.UpDateService)
 
 	userServiceGroup := r.Group("/userService")
 	userServiceGroup.POST("/add", handler.AddServiceWithUserName)

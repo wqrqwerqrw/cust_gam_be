@@ -101,11 +101,18 @@ func QueryService(c *gin.Context) {
 
 	dbService, err := store.QueryService(req)
 
+	service := model.APIServiceWithId{
+		Id:   dbService.ID,
+		Name: dbService.Name,
+		Cost: dbService.Cost,
+		Desc: dbService.Desc,
+		Tag:  dbService.Tag,
+	}
 	if err != nil {
 		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")
 		return
 	}
-	utils.MakeOKResp(c, dbService)
+	utils.MakeOKResp(c, service)
 }
 
 // QueryAllService 查询所有服务
@@ -154,6 +161,22 @@ func AddServiceWithUserName(c *gin.Context) {
 
 	err = store.AddServiceWithUserName(req)
 
+	if err != nil {
+		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")
+		return
+	}
+
+	utils.MakeOKResp(c, nil)
+}
+
+// UpDateService 修改服务信息
+func UpDateService(c *gin.Context) {
+	req := model.APIServiceWithId{}
+	if err := c.ShouldBind(&req); err != nil {
+		utils.MakeErrorResp(c, utils.ErrorWrongAttr, "参数错误")
+		return
+	}
+	err := store.UpdateService(req)
 	if err != nil {
 		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")
 		return

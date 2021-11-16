@@ -5,7 +5,6 @@ CREATE TABLE `tbl_user` (
     `phone` varchar(32) DEFAULT '' COMMENT '手机号',
     `is_vip` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否是会员(非会员0/会员1)',
     `money` float(10) NOT NULL COMMENT '剩余多少钱',
-    `user_pwd` varchar(256) NOT NULL COMMENT  '用户encoded密码',
     `create_time` datetime default NOW() COMMENT '创建时间',
     `update_time` datetime default NOW() on update current_timestamp() COMMENT '更新日期',
     `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态(可用0/已删除1)',

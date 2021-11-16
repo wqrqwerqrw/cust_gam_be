@@ -17,7 +17,6 @@ func CreateUser(apiUser model.APIUser) error {
 	user := &model.User{
 		UserName:   apiUser.UserName,
 		Phone:      apiUser.Phone,
-		UserPwd:    apiUser.Password,
 		IsVip:      apiUser.IsVip,
 		Money:      apiUser.Money,
 		CreateTime: now,
@@ -92,7 +91,6 @@ func UpdateUser(myUser model.APIUserWithId) error {
 
 	attr := map[string]interface{}{
 		"phone":     myUser.Phone,
-		"user_pwd":  myUser.Password,
 		"is_vip":    myUser.IsVip,
 		"user_name": myUser.UserName,
 		"money":     myUser.Money,

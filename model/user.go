@@ -9,7 +9,6 @@ type User struct {
 	Phone      string    `json:"phone" gorm:"column:phone"`            // 手机号
 	IsVip      int       `json:"isVip" gorm:"column:is_vip"`           // 是否是会员(非会员0/会员1)
 	Money      float64   `json:"money" gorm:"column:money"`            // 剩余余额
-	UserPwd    string    `json:"userPwd" gorm:"column:user_pwd"`       // 用户encoded密码
 	CreateTime time.Time `json:"createTime" gorm:"column:create_time"` // 创建时间
 	UpdateTime time.Time `json:"updateTime" gorm:"column:update_time"` // 更新日期
 	Deleted    int       `json:"deleted" gorm:"column:deleted"`        // 状态(可用0/已删除1)
@@ -23,7 +22,6 @@ func (m *User) TableName() string {
 type APIUser struct {
 	UserName string  `json:"username"`
 	Phone    string  `json:"phone"`
-	Password string  `json:"password"`
 	IsVip    int     `json:"isVip"`
 	Money    float64 `json:"money"`
 }
@@ -33,7 +31,6 @@ type APIUserWithId struct {
 	Id       int     `json:"id"`
 	UserName string  `json:"username"`
 	Phone    string  `json:"phone"`
-	Password string  `json:"password"`
 	IsVip    int     `json:"isVip"`
 	Money    float64 `json:"money"`
 }
