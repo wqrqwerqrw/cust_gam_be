@@ -72,3 +72,9 @@ type APIUserServiceWithId struct {
 	ServiceTime int     `json:"serviceTime"`
 	IsUsed      int8    `json:"isUsed"`
 }
+
+// APIPayMoney 付钱，前端传入
+type APIPayMoney struct {
+	UserName string  `json:"username"`
+	Money    float64 `json:"money"`
+}

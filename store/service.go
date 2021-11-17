@@ -211,5 +211,21 @@ func QueryTotalMoney(username string) (float64, error) {
 	}
 
 	return total, nil
+}
 
+// PayMoney 付钱
+func PayMoney(apiPay model.APIPayMoney) error {
+	db, err := DBConn()
+	if err != nil {
+		return err
+	}
+	err = db.Debug().Table("tbl_user_service").Where("user_name = ? and deleted = 0 and is_used = 1", apiPay.UserName).Update("deleted", 1).Error
+	if err != nil {
+		return err
+	}
+	err = db.Debug().Table("tbl_user").Where("user_name = ? and deleted = 0", apiPay.UserName).Update("money", apiPay.Money).Error
+	if err != nil {
+		return err
+	}
+	return nil
 }

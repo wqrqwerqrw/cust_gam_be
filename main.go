@@ -21,6 +21,7 @@ func main() {
 	userGroup.DELETE("/delete", handler.DeleteUser)
 	userGroup.GET("/query", handler.QueryUser)
 	userGroup.GET("/queryAll", handler.QueryAllUser)
+	userGroup.GET("/queryByUsername", handler.QueryUserByUsername)
 
 	serviceGroup := r.Group("/service")
 	serviceGroup.POST("/add", handler.CreateService)
@@ -35,6 +36,7 @@ func main() {
 	userServiceGroup.GET("/query", handler.QueryServiceByUserName)
 	userServiceGroup.DELETE("/delete", handler.DeleteUserService)
 	userServiceGroup.GET("/queryMoney", handler.QueryTotalMoney)
+	userServiceGroup.POST("/payMoney", handler.PayMoney)
 
 	equipmentGroup := r.Group("/equipment")
 	equipmentGroup.POST("/add", handler.CreateEquipment)

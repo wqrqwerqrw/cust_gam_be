@@ -77,6 +77,18 @@ func QueryUser(c *gin.Context) {
 	utils.MakeOKResp(c, dbUser)
 }
 
+// QueryUserByUsername 根据用户名查询用户详情
+func QueryUserByUsername(c *gin.Context) {
+	req := c.Query("username")
+	dbUser, err := store.QueryUserByUserName(req)
+
+	if err != nil {
+		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")
+		return
+	}
+	utils.MakeOKResp(c, dbUser)
+}
+
 // QueryAllUser 查询所有用户详情
 func QueryAllUser(c *gin.Context) {
 	dbUser, err := store.QueryAllUser()
