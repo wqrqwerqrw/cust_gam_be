@@ -33,6 +33,8 @@ func main() {
 	userServiceGroup.POST("/add", handler.AddServiceWithUserName)
 	userServiceGroup.POST("/change", handler.UpDateUserService)
 	userServiceGroup.GET("/query", handler.QueryServiceByUserName)
+	userServiceGroup.DELETE("/delete", handler.DeleteUserService)
+	userServiceGroup.GET("/queryMoney", handler.QueryTotalMoney)
 
 	equipmentGroup := r.Group("/equipment")
 	equipmentGroup.POST("/add", handler.CreateEquipment)

@@ -195,3 +195,34 @@ func UpDateService(c *gin.Context) {
 
 	utils.MakeOKResp(c, nil)
 }
+
+
+// DeleteUserService 删除用户服务
+func DeleteUserService(c *gin.Context) {
+	req, err := strconv.Atoi(c.Query("id"))
+	if err != nil {
+		utils.MakeErrorResp(c, utils.ErrorWrongAttr, "参数错误")
+		return
+	}
+
+	err = store.DeleteUserService(req)
+
+	if err != nil {
+		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")
+		return
+	}
+	utils.MakeOKResp(c, nil)
+}
+
+// QueryTotalMoney 查询用户服务总金额
+func QueryTotalMoney(c *gin.Context) {
+	req := c.Query("username")
+
+	totalMoney, err := store.QueryTotalMoney(req)
+
+	if err != nil {
+		utils.MakeErrorResp(c, utils.ErrorInternalError, "内部错误")
+		return
+	}
+	utils.MakeOKResp(c, totalMoney)
+}

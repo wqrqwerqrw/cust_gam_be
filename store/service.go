@@ -32,6 +32,16 @@ func DeleteService(id int) error {
 	return db.Debug().Table("tbl_service").Where("id = ? and deleted = 0", id).Update("deleted", 1).Error
 }
 
+// DeleteUserService 删除用户服务
+func DeleteUserService(id int) error {
+	db, err := DBConn()
+	if err != nil {
+		return err
+	}
+
+	return db.Debug().Table("tbl_user_service").Where("id = ? and deleted = 0", id).Update("deleted", 1).Error
+}
+
 // QueryService 查询服务
 func QueryService(id int) (*model.TblService, error) {
 	db, err := DBConn()
@@ -183,4 +193,23 @@ func UpdateService(ser model.APIServiceWithId) error {
 		return err
 	}
 	return nil
+}
+
+// QueryTotalMoney 查询用户服务总金额
+func QueryTotalMoney(username string) (float64, error) {
+	db, err := DBConn()
+	if err != nil {
+		return 0, err
+	}
+
+	total := 0.0
+	err = db.Debug().Table("tbl_user_service").Select("ROUND(SUM(`service_cost` * `service_time`), 2)").
+		Where("deleted = 0 and user_name = ? and is_used = 1", username).Find(&total).Error
+
+	if err != nil {
+		return 0, err
+	}
+
+	return total, nil
+
 }
